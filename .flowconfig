@@ -1,0 +1,12 @@
+[include]
+
+[libs]
+interfaces/
+
+[options]
+
+[ignore]
+.*/dist/.*
+.*/coverage/.*
+.*/scripts/.*
+.*/node_modules/.*
