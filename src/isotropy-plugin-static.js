@@ -1,10 +1,10 @@
 /* @flow */
-import type KoaAppType from "koa";
 
 import fs from "fs";
 import path from "path";
 import promisify from "nodefunc-promisify";
 import staticHandler from "isotropy-static";
+import type { KoaType } from "./flow/koa";
 
 const stat = promisify(fs.stat.bind(fs));
 
@@ -27,7 +27,7 @@ const getDefaultValues = function(val: Object = {}) : StaticSiteType {
 };
 
 
-const setup = async function(app: StaticSiteType, server: KoaAppType, config: StaticSiteConfigType) : Promise {
+const setup = async function(app: StaticSiteType, server: KoaType, config: StaticSiteConfigType) : Promise {
     const rootDir = path.join(config.dir, app.dir);
     try {
         const stats = await stat(rootDir);

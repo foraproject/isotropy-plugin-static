@@ -6,7 +6,7 @@ interfaces/
 [options]
 
 [ignore]
-.*/dist/.*
 .*/coverage/.*
 .*/scripts/.*
-.*/node_modules/.*
+.*/node_modules/babel-.*/.*
+.*/node_modules/babylon/.*
