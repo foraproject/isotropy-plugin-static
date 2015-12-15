@@ -4,7 +4,7 @@ import fs from "fs";
 import path from "path";
 import promisify from "nodefunc-promisify";
 import staticHandler from "isotropy-static";
-import type { KoaType } from "./flow/koa";
+import type { KoaType } from "./flow/koa-types";
 
 const stat = promisify(fs.stat.bind(fs));
 

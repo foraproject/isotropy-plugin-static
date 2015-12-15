@@ -1,7 +1,8 @@
 /* @flow */
 export type KoaType = {
     use: (middleware: KoaMiddlewareType) => void;
-    middleware: Array<KoaMiddlewareType>
+    middleware: Array<KoaMiddlewareType>;
+    listen: (port?: number) => void;
 }
 
 export type KoaNextType = () => Promise
@@ -12,8 +13,9 @@ export type KoaContextType = {
     method: string;
     path: string;
     status: number;
+    body: string;
 }
 
 export type KoaMiddlewareType = (context: KoaContextType, next: KoaNextType) => Promise
 
-export type KoaHandlerType = () => Promise;
+export type KoaHandlerType = (context: KoaContextType, args: any) => Promise;
