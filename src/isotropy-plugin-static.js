@@ -18,7 +18,7 @@ export type StaticSiteConfigType = {
     dir: string
 };
 
-const getDefaultValues = function(val: Object = {}) : StaticSiteType {
+const getDefaults = function(val: Object = {}) : StaticSiteType {
     return {
         type: "static",
         dir: val.dir || "static",
@@ -39,6 +39,6 @@ const setup = async function(app: StaticSiteType, server: KoaType, config: Stati
 
 
 export default {
-    getDefaultValues,
+    getDefaults,
     setup
 };

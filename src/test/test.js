@@ -33,7 +33,7 @@ describe("Isotropy Plugin Static", () => {
 
     it(`Should get default configuration values`, () => {
         const config = {};
-        const completedConfig = staticModule.getDefaultValues(config);
+        const completedConfig = staticModule.getDefaults(config);
         completedConfig.type.should.equal("static");
         completedConfig.dir.should.equal("static");
         completedConfig.path.should.equal("/static");
@@ -42,7 +42,7 @@ describe("Isotropy Plugin Static", () => {
 
     it(`Should serve a static site`, () => {
         const isotropyConfig = { dir: __dirname };
-        const completedConfig = staticModule.getDefaultValues({});
+        const completedConfig = staticModule.getDefaults({});
         const promise = new Promise((resolve, reject) => {
             staticModule.setup(completedConfig, defaultInstance, isotropyConfig).then(() => {
                 makeRequest("localhost", 8080, "/hello.txt", "GET", { 'Content-Type': 'application/x-www-form-urlencoded' }, {}, resolve, reject);
