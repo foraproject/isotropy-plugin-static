@@ -1,7 +1,7 @@
 {
   "author": "Jeswin Kumar <jeswinpk@agilehead.com>",
   "name": "isotropy-plugin-static",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Static file handling module for Isotropy.",
   "scripts": {
     "test": "mocha dist/test/test.js"
@@ -13,11 +13,11 @@
   "main": "dist/isotropy-plugin-static",
   "license": "MIT",
   "dependencies": {
-    "isotropy-static": "*",
+    "isotropy-router": "*",
+    "node-static": "*",
     "nodefunc-promisify": "*"
   },
   "devDependencies": {
-    "koa": "2.0.0-alpha.3",
     "babel-polyfill": "*",
     "babel-preset-es2015": "*",
     "babel-preset-react": "*",

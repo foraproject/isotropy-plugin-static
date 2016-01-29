@@ -2,9 +2,11 @@
 
 import fs from "fs";
 import path from "path";
+import Router from "isotropy-router";
+import nodeStatic from "node-static";
 import promisify from "nodefunc-promisify";
-import staticHandler from "isotropy-static";
-import type { KoaType } from "./flow/koa-types";
+
+import type { IncomingMessage, ServerResponse } from "./flow/http";
 
 const stat = promisify(fs.stat.bind(fs));
 
@@ -27,14 +29,23 @@ const getDefaults = function(val: Object = {}) : StaticSiteType {
 };
 
 
-const setup = async function(app: StaticSiteType, server: KoaType, config: StaticSiteConfigType) : Promise {
+const setup = async function(app: StaticSiteType, router: Router, config: StaticSiteConfigType) : Promise {
   const rootDir = path.join(config.dir, app.dir);
+
   try {
     const stats = await stat(rootDir);
   } catch (ex) {
     throw ex;
   }
-  server.use(staticHandler(rootDir));
+
+  const server = new nodeStatic.Server(rootDir);
+
+  router.when(() => true, async (req, res) => {
+    req.addListener('end', () => {
+      server.serve(req, res);
+    }).resume();
+  });
+
 };
 
 
