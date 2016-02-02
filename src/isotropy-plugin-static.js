@@ -40,12 +40,13 @@ const setup = async function(app: StaticSiteType, router: Router, config: Static
 
   const server = new nodeStatic.Server(rootDir);
 
-  router.when(() => true, async (req, res) => {
-    req.addListener('end', () => {
-      server.serve(req, res);
-    }).resume();
+  router.when(() => true, (req, res) => {
+    return new Promise(function(resolve, reject) {
+      req.addListener('end', () => {
+        server.serve(req, res, () => resolve());
+      }).resume();
+    });
   });
-
 };
 
 
