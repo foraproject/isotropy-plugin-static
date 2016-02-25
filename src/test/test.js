@@ -38,7 +38,7 @@ describe("Isotropy Plugin Static", () => {
   });
 
   it(`Should get default configuration values`, () => {
-    const config = {};
+    const config = { type: "static" };
     const completedConfig = staticModule.getDefaults(config);
     completedConfig.type.should.equal("static");
     completedConfig.dir.should.equal("static");

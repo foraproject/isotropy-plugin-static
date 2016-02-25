@@ -20,7 +20,13 @@ export type StaticSiteConfigType = {
   dir: string
 };
 
-const getDefaults = function(val: Object = {}) : StaticSiteType {
+export type getDefaultsParamsType = {
+  type: string,
+  dir?: string,
+  path?: string
+}
+
+const getDefaults = function(val: getDefaultsParamsType) : StaticSiteType {
   return {
     type: "static",
     dir: val.dir || "static",
