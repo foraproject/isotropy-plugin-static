@@ -57,6 +57,7 @@ const setup = async function(app: StaticSiteType, router: Router, config: Static
 
 
 export default {
+  name: "static",
   getDefaults,
   setup
 };

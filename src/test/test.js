@@ -37,6 +37,10 @@ describe("Isotropy Plugin Static", () => {
     router = new Router();
   });
 
+  it(`Name should be static`, () => {
+    staticModule.name.should.equal("static");
+  });
+
   it(`Should get default configuration values`, () => {
     const config = { type: "static" };
     const completedConfig = staticModule.getDefaults(config);
