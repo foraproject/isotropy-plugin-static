@@ -13,7 +13,8 @@ const stat = promisify(fs.stat.bind(fs));
 export type StaticSiteType = {
   dir: string,
   type: string,
-  path: string
+  path: string,
+  onError?: (req: IncomingMessage, res: ServerResponse, e: any) => void
 };
 
 export type StaticSiteConfigType = {
@@ -23,14 +24,16 @@ export type StaticSiteConfigType = {
 export type getDefaultsParamsType = {
   type: string,
   dir?: string,
-  path?: string
+  path?: string,
+  onError?: (req: IncomingMessage, res: ServerResponse, e: any) => void
 }
 
 const getDefaults = function(val: getDefaultsParamsType) : StaticSiteType {
   return {
     type: "static",
     dir: val.dir || "static",
-    path: val.path || "/static"
+    path: val.path || "/static",
+    onError: val.onError
   };
 };
 
