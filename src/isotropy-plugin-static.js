@@ -53,11 +53,7 @@ const setup = async function(app: StaticSiteType, router: Router, config: Static
           if (!e) {
             resolve();
           } else {
-            reject({
-              error: e,
-              req,
-              res
-            });
+            reject(e);
           }
         });
       }).resume();

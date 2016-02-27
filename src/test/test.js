@@ -28,7 +28,7 @@ describe("Isotropy Plugin Static", () => {
   let server, router, errorHandler;
 
   before(async () => {
-    server = http.createServer((req, res) => router.doRouting(req, res).catch(errorHandler));
+    server = http.createServer((req, res) => router.doRouting(req, res).catch((e) => errorHandler(req, res, e)));
     const listen = promisify(server.listen.bind(server));
     await listen(0);
   });
@@ -62,7 +62,7 @@ describe("Isotropy Plugin Static", () => {
     let threw = false;
     const isotropyConfig = { dir: __dirname };
     const completedConfig = staticModule.getDefaults({});
-    errorHandler = (obj) => { threw = true; obj.res.end(); }
+    errorHandler = (req, res, e) => { threw = true; res.end(); }
     await staticModule.setup(completedConfig, router, isotropyConfig);
     const { result } = await makeRequest("localhost", server.address().port, "/missing/file", "GET", { 'Content-Type': 'application/x-www-form-urlencoded' }, {});
     threw.should.be.true();
