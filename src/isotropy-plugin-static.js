@@ -49,7 +49,17 @@ const setup = async function(app: StaticSiteType, router: Router, config: Static
   router.when(() => true, (req, res) => {
     return new Promise(function(resolve, reject) {
       req.addListener('end', () => {
-        server.serve(req, res, () => resolve());
+        server.serve(req, res, function(e) {
+          if (!e) {
+            resolve();
+          } else {
+            reject({
+              error: e,
+              req,
+              res
+            });
+          }
+        });
       }).resume();
     });
   });

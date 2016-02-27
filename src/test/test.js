@@ -25,15 +25,16 @@ describe("Isotropy Plugin Static", () => {
     });
   };
 
-  let server, router;
+  let server, router, errorHandler;
 
   before(async () => {
-    server = http.createServer((req, res) => router.doRouting(req, res));
+    server = http.createServer((req, res) => router.doRouting(req, res).catch(errorHandler));
     const listen = promisify(server.listen.bind(server));
     await listen(0);
   });
 
   beforeEach(() => {
+    errorHandler = (e) => {};
     router = new Router();
   });
 
@@ -41,7 +42,7 @@ describe("Isotropy Plugin Static", () => {
     staticModule.name.should.equal("static");
   });
 
-  it(`Should get default configuration values`, () => {
+  it(`Gets default configuration values`, () => {
     const config = { type: "static" };
     const completedConfig = staticModule.getDefaults(config);
     completedConfig.type.should.equal("static");
@@ -49,12 +50,21 @@ describe("Isotropy Plugin Static", () => {
     completedConfig.path.should.equal("/static");
   });
 
-
-  it(`Should serve a static site`, async () => {
+  it(`Serves a static site`, async () => {
     const isotropyConfig = { dir: __dirname };
     const completedConfig = staticModule.getDefaults({});
     await staticModule.setup(completedConfig, router, isotropyConfig);
     const { result } = await makeRequest("localhost", server.address().port, "/hello.txt", "GET", { 'Content-Type': 'application/x-www-form-urlencoded' }, {});
     result.should.equal("hello, world\n");
+  });
+
+  it(`Should throw an error when not found`, async () => {
+    let threw = false;
+    const isotropyConfig = { dir: __dirname };
+    const completedConfig = staticModule.getDefaults({});
+    errorHandler = (obj) => { threw = true; obj.res.end(); }
+    await staticModule.setup(completedConfig, router, isotropyConfig);
+    const { result } = await makeRequest("localhost", server.address().port, "/missing/file", "GET", { 'Content-Type': 'application/x-www-form-urlencoded' }, {});
+    threw.should.be.true();
   });
 });

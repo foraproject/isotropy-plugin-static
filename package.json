@@ -1,7 +1,7 @@
 {
   "author": "Jeswin Kumar <jeswinpk@agilehead.com>",
   "name": "isotropy-plugin-static",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Static file handling module for Isotropy.",
   "scripts": {
     "test": "mocha dist/test/test.js"
