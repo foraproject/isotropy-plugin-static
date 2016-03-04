@@ -6,7 +6,7 @@ import Router from "isotropy-router";
 import nodeStatic from "node-static";
 import promisify from "nodefunc-promisify";
 
-import type { IncomingMessage, ServerResponse } from "./flow/http";
+import type { ProcessedIncomingMessage, ServerResponse } from "isotropy-interfaces/node/http";
 
 const stat = promisify(fs.stat.bind(fs));
 
@@ -14,7 +14,7 @@ export type StaticSiteType = {
   dir: string,
   type: string,
   path: string,
-  onError?: (req: IncomingMessage, res: ServerResponse, e: any) => void
+  onError?: (req: ProcessedIncomingMessage, res: ServerResponse, e: any) => void
 };
 
 export type StaticSiteConfigType = {
@@ -25,7 +25,7 @@ export type getDefaultsParamsType = {
   type: string,
   dir?: string,
   path?: string,
-  onError?: (req: IncomingMessage, res: ServerResponse, e: any) => void
+  onError?: (req: ProcessedIncomingMessage, res: ServerResponse, e: any) => void
 }
 
 const getDefaults = function(val: getDefaultsParamsType) : StaticSiteType {
