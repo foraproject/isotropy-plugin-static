@@ -1,14 +1,14 @@
 {
   "author": "Jeswin Kumar <jeswinpk@agilehead.com>",
   "name": "isotropy-plugin-static",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Static file handling module for Isotropy.",
   "scripts": {
     "test": "mocha dist/test/test.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nodejam/isotropy-plugin-static.git"
+    "url": "https://github.com/jeswin/isotropy-plugin-static.git"
   },
   "main": "dist/isotropy-plugin-static",
   "license": "MIT",
